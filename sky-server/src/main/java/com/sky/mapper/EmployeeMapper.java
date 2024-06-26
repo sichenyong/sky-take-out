@@ -40,4 +40,25 @@ public interface EmployeeMapper {
      * @return com.github.pagehelper.Page<com.sky.entity.Employee>
      **/
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * description 根据id更新对象字段
+     * @author: sichenyong
+     * @email: sichenyongwork@163.com
+     * @date: 2024/6/26 18:59
+     * @param: [employee]
+     * @return void
+     **/
+    void update(Employee employee);
+
+    /**
+     * description 根据用户id查询员工信息
+     * @author: sichenyong
+     * @email: sichenyongwork@163.com
+     * @date: 2024/6/26 19:16
+     * @param: [id]
+     * @return com.sky.entity.Employee
+     **/
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 }

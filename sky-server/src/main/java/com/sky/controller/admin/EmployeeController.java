@@ -34,6 +34,44 @@ public class EmployeeController {
     @Autowired
     private JwtProperties jwtProperties;
 
+
+    @ApiOperation("修改员工信息")
+    @PutMapping
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+    /**
+     * description 根据用户id查询用户信息
+     * @author: sichenyong
+     * @email: sichenyongwork@163.com
+     * @date: 2024/6/26 19:18
+     * @param: [id]
+     * @return com.sky.result.Result<com.sky.entity.Employee>
+     **/
+    @GetMapping("/{id}")
+    @ApiOperation("根据用户id查询用户信息")
+    public Result<Employee> getById(@PathVariable Long id){
+        return Result.success(employeeService.getById(id));
+    }
+    /**
+     * description: 启用、禁用员工账号
+     * @author: sichenyong
+     * @email: sichenyongwork@163.com
+     * @date: 2024/6/26 18:55
+     * @param: [status, id]
+     * @return com.sky.result.Result
+     **/
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用/禁用员工")
+    public Result changStatus(@PathVariable("status") Integer status, Long id) {
+        log.info("启用、禁用员工账号：{}, {}", status, id);
+        employeeService.changStatus(status, id);
+        return Result.success();
+    }
+
     /**
      * description： 员工分页查询
      * @author: sichenyong
